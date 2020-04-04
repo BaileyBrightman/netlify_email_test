@@ -1,7 +1,7 @@
-import querystring from "querystring";
+// import querystring from "querystring";
 
-const SparkPost = require('sparkpost');
-const client = new SparkPost(process.env.SPARKPOST);
+// const SparkPost = require('sparkpost');
+// const client = new SparkPost(process.env.SPARKPOST);
 
 // exports.handler = function(event, context, callback) {
 
