@@ -10,5 +10,8 @@
   "license": "ISC",
   "devDependencies": {
     "sparkpost": "^2.1.4"
+  },
+  "dependencies": {
+    "jsdom": "^16.2.2"
   }
 }
