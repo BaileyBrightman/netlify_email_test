@@ -23,7 +23,7 @@ exports.handler = function (event, context, callback) {
   JSDOM.fromFile("src/functions/template.html").then(myDom => {
     let emailHtml = formatEmail(myDom, params);
     console.log(emailHtml);
-    // sendEmail(emailHtml, 'baileybrightman@gmail.com', "The Test", callback);
+    sendEmail(emailHtml, 'baileybrightman@gmail.com', "The Test", callback);
     
   });
   console.log('Here bud\n\n\n\n\n');
