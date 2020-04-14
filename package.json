@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "netlify-lambda": "^1.6.3",
+    "webpack-node-externals": "^1.7.2"
+  }
+}

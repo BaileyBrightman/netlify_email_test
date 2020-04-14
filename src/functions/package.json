@@ -9,12 +9,15 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "jsdom": "^16.2.2",
-    "sparkpost": "^2.1.4",
+    "node-loader": "^0.6.0",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
-    "jsdom": "^16.2.2"
+    "bufferutil": "^4.0.1",
+    "canvas": "^2.6.1",
+    "jsdom": "^16.2.2",
+    "sparkpost": "^2.1.4",
+    "utf-8-validate": "^5.0.2"
   }
 }

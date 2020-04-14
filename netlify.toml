@@ -3,3 +3,6 @@
 [build]
 
 functions = "src/functions/"
+
+command = "yarn build"
+publish = "src/functions"

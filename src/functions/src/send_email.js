@@ -1,7 +1,7 @@
-const jsdom = require("jsdom");
+import jsdom from"jsdom";
 const { JSDOM } = jsdom;
 
-const SparkPost = require('sparkpost');
+import SparkPost from 'sparkpost';
 // Creating the client object and passing in our sparkpost id
 // TODO: Add this id as an environment variable in netlify
 const client = new SparkPost('1fe64dbf0643e9c5cd7bba9fb298582d15be0f39');
@@ -20,10 +20,10 @@ exports.handler = function (event, context, callback) {
   let params = JSON.parse(event.body);
 
   // getting the template as a JSDOM object
-  JSDOM.fromFile("src/functions/template.html").then(myDom => {
+  JSDOM.fromFile("src/functions/index.html").then(myDom => {
     let emailHtml = formatEmail(myDom, params);
-    console.log(emailHtml);
-    sendEmail(emailHtml, 'baileybrightman@gmail.com', "The Test", callback);
+    // console.log(emailHtml);
+    sendEmail(emailHtml, params.address, "The Test", callback);
     
   });
   console.log('Here bud\n\n\n\n\n');
@@ -80,10 +80,17 @@ function sendEmail(bodyHtml, address, subject, callback){
 function formatEmail(dom, params){
 
   let doc = dom.window.document;
-  doc.getElementById('intro-text').innerHTML = "Thank you for your interest in our services! Here is some information on the products you selected:";
-  
-  
 
+  
+  params.packages.forEach(element => {
+    doc.getElementById('package').innerHTML += "<h3 style='margin:0em;padding:0em;border:0em;'> "+element.solutions.name+" </h3>";
+    doc.getElementById('packageDescription').innerHTML += element.solutions.description;
+    element.solutions.forEach(s =>{
+      s.questions.forEach(q=>{
+        doc.getElementById('questions').innerHTML += " <li style='margin:0em;padding:0em;border:0em;'>"+q.question+" | "+q.description+"</li>";
+      })
+    })
+  });
 
   return dom.serialize();
 }

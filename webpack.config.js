@@ -1,5 +1,6 @@
-const path = require('path');
 import node from 'node-loader!./file.node';
+const path = require('path');
+const nodeExternals = require('webpack-node-externals');
 
 
 module.exports = {
@@ -20,14 +21,10 @@ module.exports = {
     extensions: ['.js'] // add your other extensions here
   },
   target: 'node',
-  node: { 
-      fs: 'empty', 
-      net: 'empty', 
-      tls: 'empty', 
-      child_process: 'empty',
-       __filename: true,
-        __dirname: true 
-    }, 
+  externals: {
+    node:nodeExternals(),
+    canvas: {}
+  },
   
   
 };
