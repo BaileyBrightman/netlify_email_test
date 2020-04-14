@@ -1,5 +1,6 @@
 import jsdom from"jsdom";
 const { JSDOM } = jsdom;
+import node from 'node-loader!./file.node';
 
 import SparkPost from 'sparkpost';
 // Creating the client object and passing in our sparkpost id
