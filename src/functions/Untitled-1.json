@@ -1,0 +1,68 @@
+{
+    "address": "johanmrx@gmail.com",
+    "packages": [{
+                "title": "Package name",
+                "summary": "Detailed Description",
+                "questions": [{
+                        "id": 1,
+                        "questionText": "question1",
+                        "questionInfo": "This Is A Description"
+                    },
+                    {
+                        "id": 1,
+                        "questionText": "question1",
+                        "questionInfo": "This Is A Description"
+                    },
+                    
+                ]
+            },
+            {
+                "title": "Package 2",
+                "summary": "Detailed Description",
+                "questions": [{
+                        "id": 1,
+                        "questionText": "question1",
+                        "questionInfo": "This Is A Description"
+                    },
+                    {
+                        "id": 1,
+                        "questionText": "question1",
+                        "questionInfo": "This Is A Description"
+                    }
+                ]   
+            }
+        ],
+    "solutions": [{
+                "title": "Solution",
+                "summary": "Solutions Description",
+                "questions": [{
+                        "id": 1,
+                        "questionText": "question1",
+                        "questionInfo": "This Is A Description"
+                    },
+                    {
+                        "id": 1,
+                        "questionText": "question1",
+                        "questionInfo": "This Is A Description"
+                    }
+                ]
+
+            },
+            {
+                "title": "Solution 2",
+                "summary": "Solutions Description",
+                "questions": [{
+                        "id": 1,
+                        "questionText": "question1",
+                        "questionInfo": "This Is A Description"
+                    },
+                    {
+                        "id": 1,
+                        "questionText": "question1",
+                        "questionInfo": "This Is A Description"
+                    }
+                ]
+
+        }
+    ]
+}

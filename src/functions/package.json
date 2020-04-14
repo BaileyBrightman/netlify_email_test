@@ -16,7 +16,9 @@
   "dependencies": {
     "bufferutil": "^4.0.1",
     "canvas": "^2.6.1",
+    "htmlparser": "^1.7.7",
     "jsdom": "^16.2.2",
+    "node-html-parser": "^1.2.16",
     "sparkpost": "^2.1.4",
     "utf-8-validate": "^5.0.2"
   }

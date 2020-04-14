@@ -1,8 +1,4 @@
-import jsdom from"jsdom";
-const { JSDOM } = jsdom;
-import node from 'node-loader!./file.node';
-
-import SparkPost from 'sparkpost';
+const SparkPost = require('sparkpost');
 // Creating the client object and passing in our sparkpost id
 // TODO: Add this id as an environment variable in netlify
 const client = new SparkPost('1fe64dbf0643e9c5cd7bba9fb298582d15be0f39');
@@ -17,16 +13,14 @@ exports.handler = function (event, context, callback) {
     });
   }
 
-  // Get the parameters from the event and parse them as json
-  let params = JSON.parse(event.body);
-
-  // getting the template as a JSDOM object
-  JSDOM.fromFile("src/functions/index.html").then(myDom => {
-    let emailHtml = formatEmail(myDom, params);
+  
+ // Get the parameters from the event and parse them as json
+ let params = JSON.parse(event.body);
+  
+    let emailHtml = formatEmail(params);
     // console.log(emailHtml);
-    sendEmail(emailHtml, params.address, "The Test", callback);
-    
-  });
+    sendEmail(emailHtml, params.address, "Another test", callback);
+   
   console.log('Here bud\n\n\n\n\n');
 
   
@@ -73,58 +67,165 @@ function sendEmail(bodyHtml, address, subject, callback){
 }
 
 /**
- * Generates the emails html body using the jsdom object and JSON data
+ * Generates the emails html body using string concatonation and JSON data
  * 
- * @param {JSDOM} dom - The JSDOM object. This is the html file template to be the body of the email 
  * @param {JSON} params - The JSON object from the request. This holds the data to be added to the body 
  */
-function formatEmail(dom, params){
+function formatEmail(params){
 
-  let doc = dom.window.document;
-
-  
+  let packageText = "";
   params.packages.forEach(element => {
-    doc.getElementById('package').innerHTML += "<h3 style='margin:0em;padding:0em;border:0em;'> "+element.solutions.name+" </h3>";
-    doc.getElementById('packageDescription').innerHTML += element.solutions.description;
-    element.solutions.forEach(s =>{
-      s.questions.forEach(q=>{
-        doc.getElementById('questions').innerHTML += " <li style='margin:0em;padding:0em;border:0em;'>"+q.question+" | "+q.description+"</li>";
-      })
-    })
+    packageText +=
+    "<div style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;'><h3 style='margin:0em;padding:0em;border:0em;'>"+element.title+"</h3>"+
+    "<p style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;'>"+element.summary+"</p><ol style='margin:0em;padding:0em;border:0em;padding-left:4%;text-align:justify;'>";
+    // Loop through and display all questions relating to selected package
+    element.questions.forEach(q =>{
+      packageText +=  " <li style='margin:0em;padding:0em;border:0em;'>"+q.questionText+" | "+q.questionInfo+"</li>";
+    });
+    packageText += "</ol><!-- End Questions --></div><!--End Package-->";
   });
 
-  return dom.serialize();
+  let solutionText = "";
+  params.solutions.forEach(element => {
+    solutionText += "<div style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;'><h3 style='margin:0em;padding:0em;border:0em;'>"+element.title+"</h3>"+
+     "<p style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;'>"+element.summary+"</p><ol style='margin:0em;padding:0em;border:0em;padding-left:4%;text-align:justify;'>";
+     // Loop through and display all questions relating to selected solution
+     element.questions.forEach(q =>{
+      solutionText += " <li style='margin:0em;padding:0em;border:0em;'>"+q.questionText+" | "+q.questionInfo+"</li>";
+     })
+     solutionText += "</ol><!-- End Questions --></div><!--End Solution-->";
+   });
+
+  //Add the start of our html template
+  let emailString = "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'>"+
+  "<link href='https://fonts.googleapis.com/css2?family=Quicksand&display=swap' rel='stylesheet'></head>"+
+  // Add the body of our document
+  "<body style='margin:0em;padding:0em;border:0em;background-color:#F1F4F4;font-family:Quicksand, sans-serif;font-size:18px;max-width:800px;margin:0 auto;padding:2%;color:565859;'>"+
+  "<div id='wrapper' style='margin:0em;padding:0em;border:0em;background-color:white;margin:0 auto;'>"+
+    
+  "<!-- Header Section -->"+
+  
+  "<header style='margin:0em;padding:0em;border:0em;'>"+
+      "<div id='logo' style='margin:0em;padding:0em;border:0em;float:left;margin:2% 0 0 5%;'>"+
+        "<img src='http://www.pattersonlaw.ca/Portals/_default/Skins/PattersonLaw/images/img-logo.png' alt='Patterson Law Logo' style='margin:0em;padding:0em;border:0em;max-width:100%;'>"+
+      "</div><!-- End Logo -->"+
+      "<div id='callout' style='margin:0em;padding:0em;border:0em;float:right;margin:3% 2% 2% 0;height:auto;overflow:hidden;'>"+
+        "<ul class='social' style='margin:0em;padding:0em;border:0em;list-style:none;margin-top:4%;padding:0;'>"+
+          "<li style='margin:0em;padding:0em;border:0em;display:inline;'><a href='https://www.facebook.com/PattersonLawNovaScotia/?ref=aymt_homepage_panel' target='_blank' style='margin:0em;padding:0em;border:0em;'><img src='http://www.pattersonlaw.ca/Portals/0/images/Facebook-icon..png' alt='Facebook Link' style='margin:0em;padding:0em;border:0em;max-width:100%;height:30px;width:30px;'></a></li>"+
+          "<li style='margin:0em;padding:0em;border:0em;display:inline;'><a href='https://www.linkedin.com/company/patterson-law/?trk=top_nav_home&originalSubdomain=ca' target='_blank' style='margin:0em;padding:0em;border:0em;'><img src='http://www.pattersonlaw.ca/Portals/0/images/linkedin-icon.png' alt='linkedin Link' style='margin:0em;padding:0em;border:0em;max-width:100%;height:30px;width:30px;'></a></li>"+
+          "<li style='margin:0em;padding:0em;border:0em;display:inline;'><a href='https://twitter.com/PattersonLawNS' target='_blank' style='margin:0em;padding:0em;border:0em;'><img src='http://www.pattersonlaw.ca/Portals/0/images/Twitter-icon.jpg' alt='Twitter Link' style='margin:0em;padding:0em;border:0em;max-width:100%;height:30px;width:30px;'></a></li>"+
+        "</ul><!--Social--></div><!-- Callout End -->"+
+    "</header><!-- Header End -->"+
+
+  "<!-- Banner Section -->"+
+    "<div class='banner' style='margin:0em;padding:0em;border:0em;margin-bottom:3%;'>"+
+      "<img src='https://www.neljohan.xyz/images/banner.jpg' alt='Banner Background Image' style='margin:0em;padding:0em;border:0em;max-width:100%;'>"+
+      "</div><!-- Banner End -->"+
+
+    "<!-- Body Section-->"+
+    "<h2 style='margin:0em;padding:0em;border:0em;letter-spacing:1%;padding-left:2%;font-weight:500;'>Patterson Go Prep Questions</h2>"+
+    "<p style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;'>"+
+      "Hi thanks for using Patterson Go in preparation for your visit to our office please take some time to read through and prepare to answer the following questions concerning your selected packages and solutions."+
+      "</p>"+
+
+"<div id='packages' style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;'>"+packageText+
+
+    "</div><!--End Package-->"+ 
+
+"<div id='solution' style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;'>"+ solutionText +
+
+      "</div><!--End Solution-->"+
+    
+
+    "<!-- Footer Section -->"+
+    "<div class='line' style='margin:0em;padding:0em;border:0em;clear:both;margin:4% auto;width:90%;height:2px;background-color:#E3E9E9;'></div>"+
+    "<!--End Line-->"+
+    "<p class='contact' style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;text-align:center;margin-bottom:4%;'>"+
+      "Patterson Law <br style='margin:0em;padding:0em;border:0em;'>"+
+      "902-897-2000<br style='margin:0em;padding:0em;border:0em;'>"+
+      "10 Church Street, Truro, Nova Scotia<br style='margin:0em;padding:0em;border:0em;'>"+
+      "contactus@pattersonlaw.ca"+
+      "</p>"+
+      "</div>"+
+  "<!--Wrapper End-->"+
+"</body>"+
+"</html>";
+  
+
+
+  return emailString;
 }
+
 
 /**
  * Sample Request
  * 
 {
-	"address": "baileybrightman@gmail.com",
-	"packages": [
-		{
-      "name": "solution name",
-      "description": "Detailed Description",
-      "solutions": [
-        {
-          "name": "Solution",
-          "description": "Solutions Description",
-          "questions": [
-						{
-              "id": 1,
-              "question": "question1",
-              "description": "This Is A Description"
-						},
+    "address": "[email]",
+    "packages": [{
+                "title": "Package name",
+                "summary": "Detailed Description",
+                "questions": [{
+                        "id": 1,
+                        "questionText": "question1",
+                        "questionInfo": "This Is A Description"
+                    },
+                    {
+                        "id": 1,
+                        "questionText": "question1",
+                        "questionInfo": "This Is A Description"
+                    }
+                    
+                ]
+            },
             {
-              "id": 1,
-              "question": "question1",
-              "description": "This Is A Description"
+                "title": "Package 2",
+                "summary": "Detailed Description",
+                "questions": [{
+                        "id": 1,
+                        "questionText": "question1",
+                        "questionInfo": "This Is A Description"
+                    },
+                    {
+                        "id": 1,
+                        "questionText": "question1",
+                        "questionInfo": "This Is A Description"
+                    }
+                ]
             }
-          ]
-      
+        ],
+    "solutions": [{
+                "title": "Solution",
+                "summary": "Solutions Description",
+                "questions": [{
+                        "id": 1,
+                        "questionText": "question1",
+                        "questionInfo": "This Is A Description"
+                    },
+                    {
+                        "id": 1,
+                        "questionText": "question1",
+                        "questionInfo": "This Is A Description"
+                    }
+                ]
+
+            },
+            {
+                "title": "Solution 2",
+                "summary": "Solutions Description",
+                "questions": [{
+                        "id": 1,
+                        "questionText": "question1",
+                        "questionInfo": "This Is A Description"
+                    },
+                    {
+                        "id": 1,
+                        "questionText": "question1",
+                        "questionInfo": "This Is A Description"
+                    }
+                ]
+
         }
-      ]
-    }
-	]
+    ]
 }
  */
