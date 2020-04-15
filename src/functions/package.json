@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "sparkpost": "^2.1.4",
-    "contentful": "^7.0.0"
+    "contentful": "^7.14.2"
   }
 }
-
