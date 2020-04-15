@@ -1,5 +1,5 @@
-const contentful = require('contentful')
-const SparkPost = require('sparkpost');
+import contentful from'contentful';
+import SparkPost from 'sparkpost';
 // Creating the client object and passing in our sparkpost id
 // TODO: Add this id as an environment variable in netlify
 const client = new SparkPost('1fe64dbf0643e9c5cd7bba9fb298582d15be0f39');
