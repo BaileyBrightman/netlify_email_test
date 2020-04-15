@@ -42,7 +42,7 @@ node_modules/
 jspm_packages/
 
 # allow node fetch
-!node_modules/node-fetch/
+# !node_modules/node-fetch/
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
