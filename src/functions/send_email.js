@@ -1,1 +1,254 @@
-!function(e){var t={};function n(i){if(t[i])return t[i].exports;var a=t[i]={i:i,l:!1,exports:{}};return e[i].call(a.exports,a,a.exports,n),a.l=!0,a.exports}n.m=e,n.c=t,n.d=function(e,t,i){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:i})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var i=Object.create(null);if(n.r(i),Object.defineProperty(i,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var a in e)n.d(i,a,function(t){return e[t]}.bind(null,a));return i},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=0)}([function(e,t,n){const i=n(1),a=new(n(2))("1fe64dbf0643e9c5cd7bba9fb298582d15be0f39");function r(e,t,n,i){a.transmissions.send({content:{from:"baileybrightman@baileybrightman.ca",subject:n,html:e},recipients:[{address:t}]}).then(e=>{console.log("Email Sent!"),console.log(e),i(null,{statusCode:200,body:"Sent Successfully"})}).catch(e=>{console.log("ERROR: Email failed\nERROR: "),console.log(e),i(null,{statusCode:500,body:"Failed to send"})})}t.handler=function(e,t,n){"POST"!==e.httpMethod&&n(null,{statusCode:405,body:"Method Not Allowed, Try POST"});let a=i.createClient({space:"9y0shzjynubp",accessToken:"KhpA-U25moFH668brEy06bE_hibzynHiaeE5MADe30U"}),d=JSON.parse(e.body);d=d.data;let o={};a.getEntries({content_type:"email"}).then((function(e){o=e.items[0].fields,o.headerImage=o.headerImage.fields,console.log(o.headerImage),r(function(e,t){let n="";e.packages.forEach(e=>{n+="<div style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;'><h3 style='margin:0em;padding:0em;border:0em;'>"+e.title+"</h3><p style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;'>"+e.summary+"</p><ol style='margin:0em;padding:0em;border:0em;padding-left:4%;text-align:justify;'>",e.questions.forEach(e=>{n+=" <li style='margin:0em;padding:0em;border:0em;'>"+e.questionText+" | "+e.questionInfo+"</li>"}),n+="</ol>\x3c!-- End Questions --\x3e</div>\x3c!--End Package--\x3e"});let i="";return e.solutions.forEach(e=>{i+="<div style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;'><h3 style='margin:0em;padding:0em;border:0em;'>"+e.title+"</h3><p style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;'>"+e.summary+"</p><ol style='margin:0em;padding:0em;border:0em;padding-left:4%;text-align:justify;'>",e.questions.forEach(e=>{i+=" <li style='margin:0em;padding:0em;border:0em;'>"+e.questionText+" | "+e.questionInfo+"</li>"}),i+="</ol>\x3c!-- End Questions --\x3e</div>\x3c!--End Solution--\x3e"}),"<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><link href='https://fonts.googleapis.com/css2?family=Quicksand&display=swap' rel='stylesheet'></head><body style='margin:0em;padding:0em;border:0em;background-color:#F1F4F4;font-family:Quicksand, sans-serif;font-size:18px;max-width:800px;margin:0 auto;padding:2%;color:565859;'><div id='wrapper' style='margin:0em;padding:0em;border:0em;background-color:white;margin:0 auto;'>\x3c!-- Header Section --\x3e<header style='margin:0em;padding:0em;border:0em;'><div id='logo' style='margin:0em;padding:0em;border:0em;float:left;margin:2% 0 0 5%;'><img src='http://www.pattersonlaw.ca/Portals/_default/Skins/PattersonLaw/images/img-logo.png' alt='Patterson Law Logo' style='margin:0em;padding:0em;border:0em;max-width:100%;'></div>\x3c!-- End Logo --\x3e<div id='callout' style='margin:0em;padding:0em;border:0em;float:right;margin:3% 2% 2% 0;height:auto;overflow:hidden;'><ul class='social' style='margin:0em;padding:0em;border:0em;list-style:none;margin-top:4%;padding:0;'><li style='margin:0em;padding:0em;border:0em;display:inline;'><a href='https://www.facebook.com/PattersonLawNovaScotia/?ref=aymt_homepage_panel' target='_blank' style='margin:0em;padding:0em;border:0em;'><img src='http://www.pattersonlaw.ca/Portals/0/images/Facebook-icon..png' alt='Facebook Link' style='margin:0em;padding:0em;border:0em;max-width:100%;height:30px;width:30px;'></a></li><li style='margin:0em;padding:0em;border:0em;display:inline;'><a href='https://www.linkedin.com/company/patterson-law/?trk=top_nav_home&originalSubdomain=ca' target='_blank' style='margin:0em;padding:0em;border:0em;'><img src='http://www.pattersonlaw.ca/Portals/0/images/linkedin-icon.png' alt='linkedin Link' style='margin:0em;padding:0em;border:0em;max-width:100%;height:30px;width:30px;'></a></li><li style='margin:0em;padding:0em;border:0em;display:inline;'><a href='https://twitter.com/PattersonLawNS' target='_blank' style='margin:0em;padding:0em;border:0em;'><img src='http://www.pattersonlaw.ca/Portals/0/images/Twitter-icon.jpg' alt='Twitter Link' style='margin:0em;padding:0em;border:0em;max-width:100%;height:30px;width:30px;'></a></li></ul>\x3c!--Social--\x3e</div>\x3c!-- Callout End --\x3e</header>\x3c!-- Header End --\x3e\x3c!-- Banner Section --\x3e<div class='banner' style='margin:0em;padding:0em;border:0em;margin-bottom:3%;'><img src='https:"+t.headerImage.file.url+"' alt='Banner Background Image' style='margin:0em;padding:0em;border:0em;max-width:100%;'></div>\x3c!-- Banner End --\x3e\x3c!-- Body Section--\x3e<h2 style='margin:0em;padding:0em;border:0em;letter-spacing:1%;padding-left:2%;font-weight:500;'>Patterson Go Prep Questions</h2><p style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;'>"+t.introductionText+"</p><div id='packages' style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;'>"+n+"</div>\x3c!--End Package--\x3e<div id='solution' style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;'>"+i+"</div>\x3c!--End Solution--\x3e\x3c!-- Footer Section --\x3e<div class='line' style='margin:0em;padding:0em;border:0em;clear:both;margin:4% auto;width:90%;height:2px;background-color:#E3E9E9;'></div>\x3c!--End Line--\x3e<p class='contact' style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;text-align:center;margin-bottom:4%;'>Patterson Law <br style='margin:0em;padding:0em;border:0em;'>"+t.phoneNumber+"<br style='margin:0em;padding:0em;border:0em;'>"+t.address+"<br style='margin:0em;padding:0em;border:0em;'>"+t.email+"</p></div>\x3c!--Wrapper End--\x3e</body></html>"}(d,o),d.address,o.emailSubjectLine,n)})),console.log("Here bud\n\n\n\n\n")}},function(e,t){e.exports=require("contentful")},function(e,t){e.exports=require("sparkpost")}]);
+const contentful = require('contentful')
+const SparkPost = require('sparkpost');
+// Creating the client object and passing in our sparkpost id
+// TODO: Add this id as an environment variable in netlify
+const client = new SparkPost('1fe64dbf0643e9c5cd7bba9fb298582d15be0f39');
+
+exports.handler = function (event, context, callback) {
+
+  if (event.httpMethod !== "POST") {
+    // If the request isn't post, return an error code and 
+    callback(null, {
+      statusCode: 405,
+      body: "Method Not Allowed, Try POST"
+    });
+  }
+
+  //TODO: Use environment variales for these keys instead of hard-coding them in
+  let client = contentful.createClient({
+    space: '9y0shzjynubp',
+    accessToken: 'KhpA-U25moFH668brEy06bE_hibzynHiaeE5MADe30U'
+  });
+  
+  // Get the parameters from the event and parse them as json
+  let params = JSON.parse(event.body);
+  params = params.data;
+  
+  // Get the content for the email from contentful then format the emal and send it  
+  let emailContent = {};
+  client.getEntries({
+    'content_type': 'email'
+  }).then(function (entries){
+    emailContent = entries.items[0].fields;
+    emailContent.headerImage = emailContent.headerImage.fields;
+    console.log(emailContent.headerImage);
+
+    // Format the email and return the html as a string
+    let emailHtml = formatEmail(params, emailContent);
+    // console.log(emailHtml);
+    sendEmail(emailHtml, params.address, emailContent.emailSubjectLine, callback);
+
+  });
+
+   
+  console.log('Here bud\n\n\n\n\n');
+
+  
+};
+
+/**
+ * Send the email using sparkpost
+ * 
+ * @param {string} bodyHtml - The body for the email as a string
+ * @param {string} address - The address the email should be sent to
+ * @param {string} subject - The subject line for the email
+ * @param {*} callback - The callback object to send verification to the client
+ */ 
+function sendEmail(bodyHtml, address, subject, callback){
+  // Sendiing the email using SparkPost
+  client.transmissions
+    .send({
+      content: {
+        from: 'baileybrightman@baileybrightman.ca',
+        subject: subject,
+        html: bodyHtml
+      },
+      recipients: [{
+        address: address /* The address from the request*/
+      }]
+    }).then(data => {
+      console.log('Email Sent!');
+      console.log(data);
+      // Success: Inform the user
+      callback(null, {
+        statusCode: 200,
+        body: "Sent Successfully"
+      });
+    })
+    .catch(err => {
+      console.log('ERROR: Email failed\nERROR: ');
+      // Faliure: Inform the user
+      console.log(err);
+      callback(null, {
+        statusCode: 500,
+        body: "Failed to send"
+      });
+    });
+}
+
+/**
+ * Generates the emails html body using string concatonation and JSON data
+ * 
+ * @param {JSON} params - A holding the data to be added to the body 
+ * @param {JSON} emailContent - A JSON Object holding the non-dynamiccally generated content.  
+ */
+function formatEmail(params, emailContent){
+
+  // Createing the package section to be added into the body later
+  let packageText = "";
+  params.packages.forEach(element => {
+    packageText +=
+    "<div style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;'><h3 style='margin:0em;padding:0em;border:0em;'>"+element.title+"</h3>"+
+    "<p style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;'>"+element.summary+"</p><ol style='margin:0em;padding:0em;border:0em;padding-left:4%;text-align:justify;'>";
+    // Loop through and display all questions relating to selected package
+    element.questions.forEach(q =>{
+      packageText +=  " <li style='margin:0em;padding:0em;border:0em;'>"+q.questionText+" | "+q.questionInfo+"</li>";
+    });
+    packageText += "</ol><!-- End Questions --></div><!--End Package-->";
+  });
+  
+  // Createing the solution section to be added into the body later
+  let solutionText = "";
+  params.solutions.forEach(element => {
+    solutionText += "<div style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;'><h3 style='margin:0em;padding:0em;border:0em;'>"+element.title+"</h3>"+
+     "<p style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;'>"+element.summary+"</p><ol style='margin:0em;padding:0em;border:0em;padding-left:4%;text-align:justify;'>";
+     // Loop through and display all questions relating to selected solution
+     element.questions.forEach(q =>{
+      solutionText += " <li style='margin:0em;padding:0em;border:0em;'>"+q.questionText+" | "+q.questionInfo+"</li>";
+     })
+     solutionText += "</ol><!-- End Questions --></div><!--End Solution-->";
+   });
+
+  //Add the start of our html template
+  let emailString = "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'>"+
+  "<link href='https://fonts.googleapis.com/css2?family=Quicksand&display=swap' rel='stylesheet'></head>"+
+  // Add the body of our document
+  "<body style='margin:0em;padding:0em;border:0em;background-color:#F1F4F4;font-family:Quicksand, sans-serif;font-size:18px;max-width:800px;margin:0 auto;padding:2%;color:565859;'>"+
+  "<div id='wrapper' style='margin:0em;padding:0em;border:0em;background-color:white;margin:0 auto;'>"+
+    
+  "<!-- Header Section -->"+
+  
+  "<header style='margin:0em;padding:0em;border:0em;'>"+
+      "<div id='logo' style='margin:0em;padding:0em;border:0em;float:left;margin:2% 0 0 5%;'>"+
+        "<img src='http://www.pattersonlaw.ca/Portals/_default/Skins/PattersonLaw/images/img-logo.png' alt='Patterson Law Logo' style='margin:0em;padding:0em;border:0em;max-width:100%;'>"+
+      "</div><!-- End Logo -->"+
+      "<div id='callout' style='margin:0em;padding:0em;border:0em;float:right;margin:3% 2% 2% 0;height:auto;overflow:hidden;'>"+
+        "<ul class='social' style='margin:0em;padding:0em;border:0em;list-style:none;margin-top:4%;padding:0;'>"+
+          "<li style='margin:0em;padding:0em;border:0em;display:inline;'><a href='https://www.facebook.com/PattersonLawNovaScotia/?ref=aymt_homepage_panel' target='_blank' style='margin:0em;padding:0em;border:0em;'><img src='http://www.pattersonlaw.ca/Portals/0/images/Facebook-icon..png' alt='Facebook Link' style='margin:0em;padding:0em;border:0em;max-width:100%;height:30px;width:30px;'></a></li>"+
+          "<li style='margin:0em;padding:0em;border:0em;display:inline;'><a href='https://www.linkedin.com/company/patterson-law/?trk=top_nav_home&originalSubdomain=ca' target='_blank' style='margin:0em;padding:0em;border:0em;'><img src='http://www.pattersonlaw.ca/Portals/0/images/linkedin-icon.png' alt='linkedin Link' style='margin:0em;padding:0em;border:0em;max-width:100%;height:30px;width:30px;'></a></li>"+
+          "<li style='margin:0em;padding:0em;border:0em;display:inline;'><a href='https://twitter.com/PattersonLawNS' target='_blank' style='margin:0em;padding:0em;border:0em;'><img src='http://www.pattersonlaw.ca/Portals/0/images/Twitter-icon.jpg' alt='Twitter Link' style='margin:0em;padding:0em;border:0em;max-width:100%;height:30px;width:30px;'></a></li>"+
+        "</ul><!--Social--></div><!-- Callout End -->"+
+    "</header><!-- Header End -->"+
+
+  "<!-- Banner Section -->"+
+    "<div class='banner' style='margin:0em;padding:0em;border:0em;margin-bottom:3%;'>"+
+      "<img src='https:"+ emailContent.headerImage.file.url +"' alt='Banner Background Image' style='margin:0em;padding:0em;border:0em;max-width:100%;'>"+
+      "</div><!-- Banner End -->"+
+
+    "<!-- Body Section-->"+
+    "<h2 style='margin:0em;padding:0em;border:0em;letter-spacing:1%;padding-left:2%;font-weight:500;'>Patterson Go Prep Questions</h2>"+
+    "<p style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;'>"+
+      emailContent.introductionText+
+      "</p>"+
+
+"<div id='packages' style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;'>"+packageText+
+
+    "</div><!--End Package-->"+ 
+
+"<div id='solution' style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;'>"+ solutionText +
+
+      "</div><!--End Solution-->"+
+    
+
+    "<!-- Footer Section -->"+
+    "<div class='line' style='margin:0em;padding:0em;border:0em;clear:both;margin:4% auto;width:90%;height:2px;background-color:#E3E9E9;'></div>"+
+    "<!--End Line-->"+
+    "<p class='contact' style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;text-align:center;margin-bottom:4%;'>"+
+      "Patterson Law <br style='margin:0em;padding:0em;border:0em;'>"+
+      emailContent.phoneNumber+"<br style='margin:0em;padding:0em;border:0em;'>"+
+      emailContent.address+"<br style='margin:0em;padding:0em;border:0em;'>"+
+      emailContent.email+
+      "</p>"+
+      "</div>"+
+  "<!--Wrapper End-->"+
+"</body>"+
+"</html>";
+  
+
+
+  return emailString;
+}
+
+
+/**
+ * Sample Request
+ * 
+{
+    "address": "[email]",
+    "packages": [{
+                "title": "Package name",
+                "summary": "Detailed Description",
+                "questions": [{
+                        "id": 1,
+                        "questionText": "question1",
+                        "questionInfo": "This Is A Description"
+                    },
+                    {
+                        "id": 1,
+                        "questionText": "question1",
+                        "questionInfo": "This Is A Description"
+                    }
+                    
+                ]
+            },
+            {
+                "title": "Package 2",
+                "summary": "Detailed Description",
+                "questions": [{
+                        "id": 1,
+                        "questionText": "question1",
+                        "questionInfo": "This Is A Description"
+                    },
+                    {
+                        "id": 1,
+                        "questionText": "question1",
+                        "questionInfo": "This Is A Description"
+                    }
+                ]
+            }
+        ],
+    "solutions": [{
+                "title": "Solution",
+                "summary": "Solutions Description",
+                "questions": [{
+                        "id": 1,
+                        "questionText": "question1",
+                        "questionInfo": "This Is A Description"
+                    },
+                    {
+                        "id": 1,
+                        "questionText": "question1",
+                        "questionInfo": "This Is A Description"
+                    }
+                ]
+
+            },
+            {
+                "title": "Solution 2",
+                "summary": "Solutions Description",
+                "questions": [{
+                        "id": 1,
+                        "questionText": "question1",
+                        "questionInfo": "This Is A Description"
+                    },
+                    {
+                        "id": 1,
+                        "questionText": "question1",
+                        "questionInfo": "This Is A Description"
+                    }
+                ]
+
+        }
+    ]
+}
+ */
