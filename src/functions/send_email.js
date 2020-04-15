@@ -1,3 +1,4 @@
+const contentful = require('contentful')
 const SparkPost = require('sparkpost');
 // Creating the client object and passing in our sparkpost id
 // TODO: Add this id as an environment variable in netlify
@@ -13,13 +14,32 @@ exports.handler = function (event, context, callback) {
     });
   }
 
+  //TODO: Use environment variales for these keys instead of hard-coding them in
+  let client = contentful.createClient({
+    space: '9y0shzjynubp',
+    accessToken: 'KhpA-U25moFH668brEy06bE_hibzynHiaeE5MADe30U'
+  });
   
- // Get the parameters from the event and parse them as json
- let params = JSON.parse(event.body);
+  // Get the parameters from the event and parse them as json
+  let params = JSON.parse(event.body);
+  params = params.data;
   
-    let emailHtml = formatEmail(params);
+  // Get the content for the email from contentful then format the emal and send it  
+  let emailContent = {};
+  client.getEntries({
+    'content_type': 'email'
+  }).then(function (entries){
+    emailContent = entries.items[0].fields;
+    emailContent.headerImage = emailContent.headerImage.fields;
+    console.log(emailContent.headerImage);
+
+    // Format the email and return the html as a string
+    let emailHtml = formatEmail(params, emailContent);
     // console.log(emailHtml);
-    sendEmail(emailHtml, params.address, "Another test", callback);
+    sendEmail(emailHtml, params.address, emailContent.emailSubjectLine, callback);
+
+  });
+
    
   console.log('Here bud\n\n\n\n\n');
 
@@ -69,10 +89,12 @@ function sendEmail(bodyHtml, address, subject, callback){
 /**
  * Generates the emails html body using string concatonation and JSON data
  * 
- * @param {JSON} params - The JSON object from the request. This holds the data to be added to the body 
+ * @param {JSON} params - A holding the data to be added to the body 
+ * @param {JSON} emailContent - A JSON Object holding the non-dynamiccally generated content.  
  */
-function formatEmail(params){
+function formatEmail(params, emailContent){
 
+  // Createing the package section to be added into the body later
   let packageText = "";
   params.packages.forEach(element => {
     packageText +=
@@ -84,7 +106,8 @@ function formatEmail(params){
     });
     packageText += "</ol><!-- End Questions --></div><!--End Package-->";
   });
-
+  
+  // Createing the solution section to be added into the body later
   let solutionText = "";
   params.solutions.forEach(element => {
     solutionText += "<div style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;'><h3 style='margin:0em;padding:0em;border:0em;'>"+element.title+"</h3>"+
@@ -119,13 +142,13 @@ function formatEmail(params){
 
   "<!-- Banner Section -->"+
     "<div class='banner' style='margin:0em;padding:0em;border:0em;margin-bottom:3%;'>"+
-      "<img src='https://www.neljohan.xyz/images/banner.jpg' alt='Banner Background Image' style='margin:0em;padding:0em;border:0em;max-width:100%;'>"+
+      "<img src='https:"+ emailContent.headerImage.file.url +"' alt='Banner Background Image' style='margin:0em;padding:0em;border:0em;max-width:100%;'>"+
       "</div><!-- Banner End -->"+
 
     "<!-- Body Section-->"+
     "<h2 style='margin:0em;padding:0em;border:0em;letter-spacing:1%;padding-left:2%;font-weight:500;'>Patterson Go Prep Questions</h2>"+
     "<p style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;'>"+
-      "Hi thanks for using Patterson Go in preparation for your visit to our office please take some time to read through and prepare to answer the following questions concerning your selected packages and solutions."+
+      emailContent.introductionText+
       "</p>"+
 
 "<div id='packages' style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;'>"+packageText+
@@ -142,9 +165,9 @@ function formatEmail(params){
     "<!--End Line-->"+
     "<p class='contact' style='margin:0em;padding:0em;border:0em;padding:2%;text-align:justify;text-align:center;margin-bottom:4%;'>"+
       "Patterson Law <br style='margin:0em;padding:0em;border:0em;'>"+
-      "902-897-2000<br style='margin:0em;padding:0em;border:0em;'>"+
-      "10 Church Street, Truro, Nova Scotia<br style='margin:0em;padding:0em;border:0em;'>"+
-      "contactus@pattersonlaw.ca"+
+      emailContent.phoneNumber+"<br style='margin:0em;padding:0em;border:0em;'>"+
+      emailContent.address+"<br style='margin:0em;padding:0em;border:0em;'>"+
+      emailContent.email+
       "</p>"+
       "</div>"+
   "<!--Wrapper End-->"+
