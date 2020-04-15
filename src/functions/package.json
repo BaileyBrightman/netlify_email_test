@@ -12,6 +12,7 @@
   "dependencies": {
     "contentful": "^7.14.2",
     "encoding": "^0.1.12",
+    "node-fetch": "^2.6.0",
     "sparkpost": "^2.1.4"
   }
 }

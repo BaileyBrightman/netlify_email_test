@@ -1,4 +1,5 @@
-const contentful = require('contentful');
+// const contentful = require('contentful');
+const nf = require('node-fetch')
 const SparkPost = require('sparkpost');
 // Creating the client object and passing in our sparkpost id
 // TODO: Add this id as an environment variable in netlify
@@ -15,10 +16,10 @@ exports.handler = function (event, context, callback) {
   }
 
   //TODO: Use environment variales for these keys instead of hard-coding them in
-  let client = contentful.createClient({
-    space: '9y0shzjynubp',
-    accessToken: 'KhpA-U25moFH668brEy06bE_hibzynHiaeE5MADe30U'
-  });
+  // let client = contentful.createClient({
+  //   space: '9y0shzjynubp',
+  //   accessToken: 'KhpA-U25moFH668brEy06bE_hibzynHiaeE5MADe30U'
+  // });
   
   // Get the parameters from the event and parse them as json
   let params = JSON.parse(event.body);
@@ -26,19 +27,19 @@ exports.handler = function (event, context, callback) {
   
   // Get the content for the email from contentful then format the emal and send it  
   let emailContent = {};
-  client.getEntries({
-    'content_type': 'email'
-  }).then(function (entries){
-    emailContent = entries.items[0].fields;
-    emailContent.headerImage = emailContent.headerImage.fields;
-    console.log(emailContent.headerImage);
+  // client.getEntries({
+  //   'content_type': 'email'
+  // }).then(function (entries){
+  //   emailContent = entries.items[0].fields;
+  //   emailContent.headerImage = emailContent.headerImage.fields;
+  //   console.log(emailContent.headerImage);
 
-    // Format the email and return the html as a string
-    let emailHtml = formatEmail(params, emailContent);
-    // console.log(emailHtml);
-    sendEmail(emailHtml, params.address, emailContent.emailSubjectLine, callback);
+  //   // Format the email and return the html as a string
+  //   let emailHtml = formatEmail(params, emailContent);
+  //   // console.log(emailHtml);
+  //   sendEmail(emailHtml, params.address, emailContent.emailSubjectLine, callback);
 
-  });
+  // });
 
    
   console.log('Here bud\n\n\n\n\n');
