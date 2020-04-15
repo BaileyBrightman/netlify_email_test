@@ -1,5 +1,5 @@
 // const contentful = require('contentful');
-const nf = require('node-fetch')
+const nf = require('./node-fetch')
 const SparkPost = require('sparkpost');
 // Creating the client object and passing in our sparkpost id
 // TODO: Add this id as an environment variable in netlify
