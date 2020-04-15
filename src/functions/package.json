@@ -17,5 +17,8 @@
     "encoding": "^0.1.12",
     "node-fetch": "^2.6.0",
     "sparkpost": "^2.1.4"
+  },
+  "jshint.options": {
+    "esversion": 6
   }
 }
