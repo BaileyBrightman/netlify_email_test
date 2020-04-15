@@ -10,7 +10,8 @@
   "license": "ISC",
   "devDependencies": {},
   "dependencies": {
-    "sparkpost": "^2.1.4",
-    "contentful": "^7.14.2"
+    "contentful": "^7.14.2",
+    "encoding": "^0.1.12",
+    "sparkpost": "^2.1.4"
   }
 }
